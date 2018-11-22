@@ -10,7 +10,9 @@
        http://www.springframework.org/schema/tx
        http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <!-- 扫描service包下所有使用注解的类型 -->
+    <!--spring自动扫描-->
+    <context:annotation-config />
+    <!-- 扫描service包下所有使用注解的类型,组件扫描 -->
     <context:component-scan base-package="com.erp.service"/>
 
     <!-- 配置数据库相关参数properties的属性：${url} -->
@@ -34,9 +36,9 @@
         <!-- 注入数据库连接池 -->
         <property name="dataSource" ref="dataSource"/>
         <!-- 扫描model包 使用别名 -->
-        <property name="typeAliasesPackage" value="com.chatRobot.model"/>
+        <property name="typeAliasesPackage" value="com.erp.pojo"/>
         <!-- 扫描sql配置文件:mapper需要的xml文件 -->
-        <property name="mapperLocations" value="classpath:"/>
+        <property name="mapperLocations" value="classpath:mapperList/*.xml"/>
     </bean>
 
     <!-- 配置扫描Dao接口包，动态实现Dao接口，注入到spring容器中 -->
@@ -44,7 +46,7 @@
         <!-- 注入sqlSessionFactory -->
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
         <!-- 给出需要扫描Dao接口包 -->
-        <property name="basePackage" value="com.chatRobot.dao"/>
+        <property name="basePackage" value="com.erp.dao"/>
     </bean>
 
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">

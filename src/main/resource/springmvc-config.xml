@@ -10,20 +10,29 @@
        http://www.springframework.org/schema/mvc
        http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 
+    <!--启用spring的一些annotation -->
+    <context:annotation-config/>
+
     <!-- 扫描web相关的bean -->
     <context:component-scan base-package="com.erp.controller"/>
 
     <!-- 开启SpringMVC注解模式 -->
     <mvc:annotation-driven/>
+    <!--静态资源映射-->
+    <!--本项目把静态资源放在了webapp的statics目录下，资源映射如下-->
+    <mvc:resources mapping="/css/**" location="statics/css/"/>
+    <mvc:resources mapping="/js/**" location="statics/js/"/>
+    <mvc:resources mapping="/images/**" location="statics/images/"/>
 
     <!-- 静态资源默认servlet配置 -->
     <mvc:default-servlet-handler/>
 
-    <!-- 配置jsp 显示ViewResolver -->
-    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    <!-- 对模型视图名称的解析，即在模型视图名称添加前后缀(如果最后一个还是表示文件夹,则最后的斜杠不要漏了) 使用JSP-->
+    <!-- 默认的视图解析器 在上边的解析错误时使用 (默认使用html)- -->
+    <bean id="defaultViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
-        <property name="prefix" value="/WEB-INF/views/"/>
+        <property name="prefix" value="/statics/jsp/"/><!--设置JSP文件的目录位置-->
         <property name="suffix" value=".jsp"/>
+        <property name="exposeContextBeansAsAttributes" value="true"/>
     </bean>
-
 </beans>
