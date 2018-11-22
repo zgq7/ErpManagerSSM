@@ -10,10 +10,15 @@
        http://www.springframework.org/schema/tx
        http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <!--spring自动扫描-->
-    <context:annotation-config />
-    <!-- 扫描service包下所有使用注解的类型,组件扫描 -->
+
+    <!--启用spring的一些annotation -->
+    <context:annotation-config/>
+    <!-- 扫描web相关的bean -->
     <context:component-scan base-package="com.erp.service"/>
+
+
+    <!--<bean id="customer" class="com.erp.pojo.Customer"/>-->
+    <bean id="customerImpl" class="com.erp.serviceImpl.CustomerServiceImpl"/>
 
     <!-- 配置数据库相关参数properties的属性：${url} -->
     <context:property-placeholder location="classpath:jdbc.properties"/>

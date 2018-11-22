@@ -1,9 +1,10 @@
 package com.erp.service;
 
+import com.erp.pojo.Customer;
 
-/**
- * Created by Administrator on 2018/11/22.
- */
+import java.util.List;
+
 public interface CustomerService {
-    boolean Login(String cardNo,String password);
+    String Login(Customer customer);
+    List<Customer> CatchAllCustomer();
 }

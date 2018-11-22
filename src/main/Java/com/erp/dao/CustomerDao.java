@@ -1,8 +1,11 @@
 package com.erp.dao;
 
-/**
- * Created by Administrator on 2018/11/22.
- */
+
+import com.erp.pojo.Customer;
+
+import java.util.List;
+
 public interface CustomerDao {
-    boolean Login(String cardNo,String password);
+    String Login(Customer customer);
+    List<Customer> CatchAllCustomer();
 }

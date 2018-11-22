@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-        <!DOCTYPE mapper
-                PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-                "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="com.erp.dao.CustomerDao">
-        <select id="Login" parameterType="String" resultType="Boolean">
-               call customer_login(#{cardNo},#{password});
-        </select>
+    <select id="Login" parameterType="Customer" resultType="String">
+        call customer_login(#{cardNo},#{password});
+    </select>
+
+    <select id="CatchAllCustomer" resultType="Customer">
+        SELECT  * from erp_customer ;
+    </select>
+
 </mapper>
