@@ -10,7 +10,7 @@ import java.util.List;
 public class CustomerServiceImpl implements CustomerService{
 
     @Autowired
-    CustomerDao customerDao;
+    private CustomerDao customerDao;
 
     @Override
     public String Login(Customer customer) {
@@ -19,7 +19,6 @@ public class CustomerServiceImpl implements CustomerService{
 
     @Override
     public List<Customer> CatchAllCustomer() {
-        System.out.println("dao....");
         return customerDao.CatchAllCustomer();
     }
 }

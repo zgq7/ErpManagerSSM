@@ -29,9 +29,9 @@ public class TestController {
             String status = customerService.Login(customer);
             log.info("返回登录状态：{}", status);
             if (status.equals("true")) {
-                directJsp = "loginSuccess";
+                directJsp = "Customer/loginSuccess";
             } else {
-                directJsp = "error";
+                directJsp = "Customer/error";
             }
         } catch (Exception e) {
             log.info("系统异常：", e);
