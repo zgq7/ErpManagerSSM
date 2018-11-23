@@ -31,7 +31,7 @@ public class TestController {
             if (status.equals("true")) {
                 directJsp = "Customer/loginSuccess";
             } else {
-                directJsp = "Customer/error";
+                directJsp = "error";
             }
         } catch (Exception e) {
             log.info("系统异常：", e);
