@@ -35,4 +35,12 @@
         <property name="suffix" value=".jsp"/>
         <property name="exposeContextBeansAsAttributes" value="true"/>
     </bean>
+
+    <!--springMvc拦截器-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/toLoginSuccess"/>
+            <bean class="com.erp.zdyUtils.HandAdapterTest"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 </beans>

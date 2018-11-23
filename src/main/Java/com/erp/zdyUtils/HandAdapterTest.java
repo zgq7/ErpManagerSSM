@@ -1,12 +1,19 @@
 package com.erp.zdyUtils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.Filter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class HandAdapterTest implements HandlerInterceptor{
+    private static final Logger log = LoggerFactory.getLogger(Filter.class);
     /**
      * httpServletRequest存储请求信息，如ip地址,url等
      * preHandle进入Handler方法之前执行了，使用于身份认证，身份授权，登陆校验等，比如身份认证，用户没有登陆，
@@ -14,7 +21,22 @@ public class HandAdapterTest implements HandlerInterceptor{
      * **/
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
-        return false;
+        String ip = httpServletRequest.getRemoteAddr();
+        String url = httpServletRequest.getRequestURI();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        Date date = new Date();
+        String time = sdf.format(date);
+        log.info("时间:{},IP地址:{},目标URL:{}",time,ip,url);
+
+        HttpSession session = httpServletRequest.getSession();
+        String username = (String) session.getAttribute("username");
+        log.info("username:{}",username);
+        if(username != null){
+            return true;
+        }else {
+            httpServletRequest.getRequestDispatcher("/index.jsp").forward(httpServletRequest,httpServletResponse);
+            return false;
+        }
     }
 
     /**
