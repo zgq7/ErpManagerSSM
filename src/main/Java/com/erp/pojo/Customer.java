@@ -1,19 +1,10 @@
 package com.erp.pojo;
 
 public class Customer {
-    private Integer cardId;
     private String cardNo;
     private String mobile;
     private String password;
     private String name;
-
-    public Integer getCardId() {
-        return cardId;
-    }
-
-    public void setCardId(Integer cardId) {
-        this.cardId = cardId;
-    }
 
     public String getCardNo() {
         return cardNo;
@@ -49,6 +40,6 @@ public class Customer {
 
     @Override
     public String toString() {
-        return "Customer["+"姓名："+name+"手机："+mobile+"卡号："+cardNo+"]";
+        return "Customer["+"姓名："+name+",手机："+mobile+",卡号："+cardNo+",密码："+password+"]";
     }
 }

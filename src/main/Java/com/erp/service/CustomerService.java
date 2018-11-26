@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface CustomerService {
     String Login(Customer customer);
+    String Register(Customer customer);
     List<Customer> CatchAllCustomer();
 }

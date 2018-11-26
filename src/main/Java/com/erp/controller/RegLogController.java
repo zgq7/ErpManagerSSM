@@ -2,6 +2,7 @@ package com.erp.controller;
 
 import com.erp.pojo.Customer;
 import com.erp.service.CustomerService;
+import jdk.nashorn.internal.ir.annotations.Immutable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,15 +12,20 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
-public class TestController {
-    private static final Logger log = LoggerFactory.getLogger(TestController.class);
+public class RegLogController {
+    private static final Logger log = LoggerFactory.getLogger(RegLogController.class);
     @Autowired
     private CustomerService customerService;
 
-    @RequestMapping(value = "/Login",method = RequestMethod.POST)
+    /**
+     * 用户登录
+     **/
+    @RequestMapping(value = "/Login", method = RequestMethod.POST)
     public String Login(HttpServletRequest request, HttpSession session, Model model) {
         Customer customer = new Customer();
         String directJsp = null;
@@ -31,10 +37,10 @@ public class TestController {
             String status = customerService.Login(customer);
             log.info("返回登录状态：{}", status);
             if (status.equals("true")) {
-                session.setAttribute("username",customer.getCardNo());
+                session.setAttribute("username", customer.getCardNo());
                 directJsp = "forward:toLoginSuccess";
             } else {
-                model.addAttribute("msg","登录失败");
+                model.addAttribute("msg", "登录失败");
                 directJsp = "forward:toIndex";
             }
         } catch (Exception e) {
@@ -42,19 +48,41 @@ public class TestController {
         }
         return directJsp;
     }
+
+    /**
+     * 用户注册
+     **/
+    @RequestMapping(value = "/Register", method = RequestMethod.POST)
+    public @ResponseBody
+    Map<String, Object> Register(@RequestBody Customer customer) {
+        log.info("{}", customer.toString());
+        String resultCard = customerService.Register(customer);
+        log.info("{}", resultCard);
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("msg", resultCard);
+        log.info("{}", resultMap);
+        return resultMap;
+    }
+
+    /**
+     * 登录成功跳转
+     **/
+    @RequestMapping(value = "toLoginSuccess")
+    public String toLoginSuccess() {
+        return "Customer/loginSuccess";
+    }
+
+    /**
+     * 返回首页
+     **/
     @RequestMapping(value = "toIndex")
-    public String toIndex(){
-        return "index";
+    public String toIndex() {
+        return "welcome/index";
     }
 
     @RequestMapping(value = "toError")
-    public String toError(){
+    public String toError() {
         return "error";
-    }
-
-    @RequestMapping(value = "toLoginSuccess")
-    public String toLoginSuccess(){
-        return "Customer/loginSuccess";
     }
 
     @RequestMapping("/getAllCustomer")

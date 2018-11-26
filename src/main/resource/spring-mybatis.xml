@@ -17,7 +17,6 @@
     <context:component-scan base-package="com.erp.service"/>
 
 
-    <!--<bean id="customer" class="com.erp.pojo.Customer"/>-->
     <bean id="customerImpl" class="com.erp.serviceImpl.CustomerServiceImpl"/>
 
     <!-- 配置数据库相关参数properties的属性：${url} -->

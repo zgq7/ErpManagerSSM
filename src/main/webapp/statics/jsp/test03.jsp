@@ -13,6 +13,6 @@
 <body>
 test 03 jsp
 <br>
-<a href="index.jsp">返回首页</a>
+<a href="toIndex">返回首页</a>
 </body>
 </html>

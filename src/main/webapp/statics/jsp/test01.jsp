@@ -16,6 +16,6 @@ test 01 jsp
 <a href="toTest02">test02</a>
 <a href="toTest03">test03</a>
 <a href="getAllCustomer">test04</a>
-<a href="index.jsp">返回首页</a>
+<a href="toIndex">返回首页</a>
 </body>
 </html>

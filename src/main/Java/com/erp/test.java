@@ -1,6 +1,6 @@
 package com.erp;
 
-import com.erp.dao.CustomerDao;
+import com.erp.dao.RegLogCustomerDao;
 import com.erp.pojo.Customer;
 import com.erp.service.CustomerService;
 import com.erp.serviceImpl.CustomerServiceImpl;
@@ -45,7 +45,7 @@ public class test {
         System.out.println(1);
         CustomerServiceImpl customerServiceimpl = applicationContext.getBean(CustomerServiceImpl.class);
         System.out.println(2);
-        CustomerDao customerDao = applicationContext.getBean(CustomerDao.class);
+        RegLogCustomerDao regLogCustomerDao = applicationContext.getBean(RegLogCustomerDao.class);
         System.out.println(3);
         Customer customer = applicationContext.getBean(Customer.class);
         System.out.println(4);

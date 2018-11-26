@@ -51,7 +51,7 @@
   </listener>
 
   <welcome-file-list>
-    <welcome-file>statics/jsp/index.jsp</welcome-file>
+    <welcome-file>statics/jsp/welcome/index.jsp</welcome-file>
   </welcome-file-list>
 
 </web-app>
