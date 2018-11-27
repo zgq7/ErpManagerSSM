@@ -1,0 +1,52 @@
+body{
+    background: url("http://localhost:8080/ErpManagerSSM/images/gif.gif");
+    background-size: 100%;
+}
+#register{
+    float: left;
+    background-color: darkslategrey;
+    width: 20%;
+    margin-top: 10%;
+    margin-left: 40%;
+    display: none;
+}
+
+#div01 {
+    float: left;
+    border: mediumseagreen 6px solid;
+    width: 20%;
+    height: 40%;
+    margin-top: 10%;
+    margin-left: 70%;
+}
+
+input {
+    width: 60%;
+    margin-top: 50px;
+    margin-left: 20%;
+}
+
+button.login {
+    margin-top: 10%;
+    width: 40%;
+    margin-left: 30%;
+    background-color: aquamarine;
+}
+button.register{
+    margin-top: 10%;
+    width: 40%;
+    margin-left: 30%;
+    background-color: greenyellow;
+}
+button.postCus{
+    margin-top: 10%;
+    width: 40%;
+    margin-left: 30%;
+    background-color: greenyellow;
+    margin-bottom: 10%;
+}
+#msg{
+    color: brown;
+    margin-top: 5%;
+    text-align: center;
+}
