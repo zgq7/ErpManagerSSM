@@ -11,7 +11,7 @@
 
     <!--用户注册-->
     <select id="Register" parameterType="Customer" resultType="String">
-        CALL customer_regist(#{cardNo}, #{mobile}, #{password}, #{name});
+        CALL customer_regist(#{name},#{cardNo},#{password} ,#{mobile});
     </select>
 
     <!--获取首页用户-->
