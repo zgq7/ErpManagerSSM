@@ -9,6 +9,10 @@
         CALL customer_login(#{cardNo}, #{password});
     </select>
 
+    <select id="checkRegInfo" resultType="Integer" parameterType="String">
+        select count(*) from erp_customer where cardNo = #{cardNo};
+    </select>
+
     <!--用户注册-->
     <select id="Register" parameterType="Customer" resultType="String">
         CALL customer_regist(#{name},#{cardNo},#{password} ,#{mobile});

@@ -13,6 +13,5 @@
 <body>
 something was wrong
 <br>
-<a href="toIndex">返回首页</a>
 </body>
 </html>

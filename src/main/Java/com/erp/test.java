@@ -3,7 +3,7 @@ package com.erp;
 import com.erp.dao.RegLogCustomerDao;
 import com.erp.pojo.Customer;
 import com.erp.service.CustomerService;
-import com.erp.serviceImpl.CustomerServiceImpl;
+import com.erp.service.serviceImpl.CustomerServiceImpl;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;

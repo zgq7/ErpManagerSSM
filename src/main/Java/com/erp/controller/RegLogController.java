@@ -24,12 +24,12 @@ public class RegLogController {
 
     /**
      * 用户登录
+     * request 传值
+     * 用户暂时使用session登录
      **/
     @RequestMapping(value = "/Login", method = RequestMethod.POST)
     public String Login(HttpServletRequest request, HttpSession session, Model model) {
         Customer customer = new Customer();
-        String directJsp = null;
-        //返回目标Jsp前缀
         customer.setPassword(request.getParameter("password"));
         customer.setCardNo(request.getParameter("cardNo"));
         log.info("账号:{}，密码:{}", customer.getCardNo(), customer.getPassword());
@@ -37,30 +37,36 @@ public class RegLogController {
             String status = customerService.Login(customer);
             log.info("返回登录状态：{}", status);
             if (status.equals("true")) {
+                //返回session登录名
                 session.setAttribute("username", customer.getCardNo());
-                directJsp = "forward:toLoginSuccess";
+                return "forward:toLoginSuccess";
             } else {
                 model.addAttribute("msg", "登录失败");
-                directJsp = "forward:toIndex";
+                return  "forward:toIndex";
             }
         } catch (Exception e) {
             log.info("系统异常：", e);
         }
-        return directJsp;
+        return "redirect:toError";
     }
 
     /**
      * 用户注册
+     * 使用ajax传一个customer对象然后返回注册信息
      **/
     @RequestMapping(value = "/Register", method = RequestMethod.POST)
     public @ResponseBody
     Map<String, Object> Register(@RequestBody Customer customer) {
-        log.info("{}", customer.toString());
-        String resultCard = customerService.Register(customer);
-        log.info("{}", resultCard);
         Map<String, Object> resultMap = new HashMap<>();
-        resultMap.put("msg", resultCard);
-        log.info("{}", resultMap);
+        log.info("{}", customer.toString());
+        if (customerService.checkRegInfo(customer.getCardNo()) == 0) {
+            String resultCard = customerService.Register(customer);
+            log.info("{}", resultCard);
+            resultMap.put("msg", "用户" + resultCard + "注册成功");
+            log.info("{}", resultMap);
+        } else {
+            resultMap.put("msg",  "该账号已被注册，注册失败");
+        }
         return resultMap;
     }
 
