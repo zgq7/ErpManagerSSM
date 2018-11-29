@@ -1,0 +1,49 @@
+#top1{
+    width: 100%;
+    height: 10%;
+    background-color: darkcyan;
+    text-align: center;
+    font-size: 50px;
+    font-family: 华文隶书;
+    letter-spacing: 10pt;
+    color: mediumseagreen;
+}
+#top2{
+    width: 100%;
+    height: 90%;
+}
+#top2-1{
+    width: 15%;
+    height: 100%;
+    background-color: darkcyan;
+    float: left;
+}
+#top2-2{
+    width: 83%;
+    height: 98%;
+    background-color:gray;
+    margin-top: 1%;
+    margin-left: 1%;
+    float: left;
+}
+#customer{
+    height: 98%;
+    width: 98%;
+    margin-left: 1%;
+    margin-top: 1%;
+}
+li{
+    list-style-type: none;
+}
+.gl{
+    width: 80%;
+    font-family: 华文楷体;
+
+}
+.gl-z{
+    width: 40%;
+    font-family: 华文楷体;
+}
+.current{
+    background-color: brown;
+}
