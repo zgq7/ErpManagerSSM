@@ -11,39 +11,42 @@
 <body>
 <div id="top1">
     欢 迎 来 到 EMS
+    <div id="head">
+        <ul>
+            <li class="glyphicon glyphicon-log-in"></li>
+        </ul>
+    </div>
 </div>
 <div id="top2">
     <div id="top2-1">
-        <ul class="ul01">
-            <li class="level01">
-                <a href="#">
-                    <button class="gl">管理一</button>
-                </a>
-                <ul class="ul02">
-                    <li>
-                        <button class="gl-z">1</button>
+        <ul id="ul">
+            <li class="levels">
+                <span class="glyphicon glyphicon-plus"></span>
+                <button class="btn btn-info">管理1</button>
+                <ul class="ul-gls">
+                    <li class="li-gls">
+                        <button class="btn btn-xs">管理1.1</button>
                     </li>
-                    <li>
-                        <button class="gl-z">1</button>
+                    <li class="li-gls">
+                        <button class="btn btn-xs">管理1.1</button>
                     </li>
-                    <li>
-                        <button class="gl-z">1</button>
+                    <li class="li-gls">
+                        <button class="btn btn-xs">管理1.1</button>
                     </li>
                 </ul>
             </li>
-            <li class="level01">
-                <a href="#">
-                    <button class="gl">管理二</button>
-                </a>
-                <ul class="ul02">
-                    <li>
-                        <button class="gl-z">1</button>
+            <li id="levels" class="levels">
+                <span class="glyphicon glyphicon-plus"></span>
+                <button class="btn btn-info">管理1</button>
+                <ul id="ul-gls" class="ul-gls">
+                    <li class="li-gls">
+                        <button class="btn btn-xs">管理1.1</button>
                     </li>
-                    <li>
-                        <button class="gl-z">1</button>
+                    <li class="li-gls">
+                        <button class="btn btn-xs">管理1.1</button>
                     </li>
-                    <li>
-                        <button class="gl-z">1</button>
+                    <li class="li-gls">
+                        <button class="btn btn-xs">管理1.1</button>
                     </li>
                 </ul>
             </li>
@@ -56,4 +59,5 @@
     </div>
 </div>
 </body>
+
 </html>
