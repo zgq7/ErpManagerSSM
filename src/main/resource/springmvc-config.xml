@@ -23,6 +23,7 @@
     <mvc:resources mapping="/css/**" location="statics/css/"/>
     <mvc:resources mapping="/js/**" location="statics/js/"/>
     <mvc:resources mapping="/images/**" location="statics/images/"/>
+    <mvc:resources mapping="/bootstrap/**" location="statics/bootstrap/"/>
 
     <!-- 静态资源默认servlet配置 -->
     <mvc:default-servlet-handler/>

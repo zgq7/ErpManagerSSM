@@ -5,6 +5,8 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.3.1.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/LoginSuccess.js"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/LoginSuccess.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/bootstrap.min.css">
+    <script type="text/javascript" src="${pageContext.request.contextPath}/bootstrap/bootstrap.min.js"></script>
 </head>
 <body>
 <div id="top1">
