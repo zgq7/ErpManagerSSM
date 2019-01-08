@@ -46,6 +46,7 @@ public class RegLogController {
         } catch (Exception e) {
             log.info("系统异常：", e);
         }
+
         return "redirect:toError";
     }
 
