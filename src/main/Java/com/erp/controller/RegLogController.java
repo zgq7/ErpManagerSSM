@@ -2,7 +2,6 @@ package com.erp.controller;
 
 import com.erp.pojo.Customer;
 import com.erp.service.CustomerService;
-import jdk.nashorn.internal.ir.annotations.Immutable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +23,8 @@ public class RegLogController {
 
     /**
      * 用户登录
-     * request 传值
-     * 用户暂时使用session登录
+     * @Param request 传值
+     * @Param session 登录
      **/
     @RequestMapping(value = "/Login", method = RequestMethod.POST)
     public String Login(HttpServletRequest request, HttpSession session, Model model) {
