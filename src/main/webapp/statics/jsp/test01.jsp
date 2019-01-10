@@ -15,7 +15,7 @@ test 01 jsp
 <br>
 <a href="toTest02">test02</a>
 <a href="toTest03">test03</a>
-<a href="getAllCustomer">test04</a>
-<a href="toIndex">返回首页</a>
+<a href="getAllCustomer">所有会员</a>
+<a href="javascript:history.back(-1)">返回上一页</a>
 </body>
 </html>

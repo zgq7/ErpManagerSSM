@@ -11,8 +11,11 @@
     <title>Title</title>
 </head>
 <body>
-test 03 jsp
-<br>
-<a href="toIndex">返回首页</a>
+<center>
+    test 03 jsp
+    <br>
+    <br>
+    <a href="javascript:history.back(-1)">返回上一页</a>
+</center>
 </body>
 </html>

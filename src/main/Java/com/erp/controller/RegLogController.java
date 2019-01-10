@@ -72,7 +72,7 @@ public class RegLogController {
     /**
      * 登录成功跳转
      **/
-    @RequestMapping(value = "toLoginSuccess")
+    @RequestMapping(value = "/toLoginSuccess")
     public String toLoginSuccess() {
         return "Customer/loginSuccess";
     }
@@ -80,12 +80,12 @@ public class RegLogController {
     /**
      * 返回首页
      **/
-    @RequestMapping(value = "toIndex")
+    @RequestMapping(value = "/toIndex")
     public String toIndex() {
         return "welcome/index";
     }
 
-    @RequestMapping(value = "toError")
+    @RequestMapping(value = "/toError")
     public String toError() {
         return "error";
     }

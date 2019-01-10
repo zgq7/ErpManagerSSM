@@ -1,5 +1,5 @@
 body {
-    background: url("http://localhost:8080/ErpManagerSSM/images/welcome.jpg");
+    background: url("http://localhost:8080/ErpManageSSM/images/welcome.jpg");
     background-size: 100%;
 }
 
@@ -16,26 +16,28 @@ body {
     float: left;
     background-color: #5e5e5e;
     border: mediumseagreen 6px solid;
-    width: 20%;
-    height: 40%;
+    width: 26%;
+    height: 50%;
     margin-top: 10%;
-    margin-left: 40%;
+    margin-left: 37%;
 }
 
 .usernameL,.passwordL,.username,.password,.name,.mobile{
     width: 60%;
-    margin-top: 50px;
+    margin-top: 15%;
     margin-left: 20%;
 }
 
 button.login {
     margin-top: 10%;
     width: 40%;
+    height: 10%;
     margin-left: 30%;
     background-color: aquamarine;
 }
 
 button.register {
+    height: 10%;
     margin-top: 10%;
     width: 40%;
     margin-left: 30%;
