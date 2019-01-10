@@ -16,7 +16,7 @@
     <button type="submit" class="postCus">提交</button>
 </div>
 
-<div id="div01">
+<div id="login">
     <form action="Login" name="loginForm" method="post">
         <input type="text" name="cardNo" placeholder="请输入账号" width="100px" class="usernameL"/><br>
         <input type="password" name="password" placeholder="请输入密码" width="100px" class="passwordL"/><br>

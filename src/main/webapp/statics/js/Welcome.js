@@ -20,7 +20,7 @@ $(document).ready(function () {
     $("button.register").click(function () {
         var dad = $("#register");
         dad.show();
-        $("#div01").hide();
+        $("#login").hide();
         dad.children(".username").val("");
         dad.children(".name").val("");
         dad.children(".password").val("");
@@ -92,7 +92,7 @@ $(document).ready(function () {
 
     /**
      * 注册匹配非法字符以及中文**/
-    function checkIlleagelinfo(customer) {
+   function checkIlleagelinfo(customer) {
         console.log(customer.password);
         var regAccountCN = /[`~!@#$%^&*()_+<>?:"{},.\/;'[\]]/im;
 
