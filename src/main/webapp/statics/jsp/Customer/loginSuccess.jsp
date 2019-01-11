@@ -13,6 +13,8 @@
     <br><br>
     <a href="toTest03">测试3</a>
     <br><br>
+    <a href="shiroLoginOut">退出登录</a>
+    <br><br>
 </center>
 </body>
 </html>

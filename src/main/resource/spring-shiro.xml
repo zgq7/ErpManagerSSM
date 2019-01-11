@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 配置shiro安全管理器 -->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <!-- 自定义realm -->
+        <property name="realm" ref="myRealm"/>
+        <!-- 配置缓存管理器 -->
+        <property name="cacheManager" ref="cacheManager"/>
+    </bean>
+
+    <!-- 配置shiro过滤器 -->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <!-- 权限管理器 -->
+        <property name="securityManager" ref="securityManager"/>
+        <!-- 登录地址 -->
+        <property name="loginUrl" value="/Login"/>
+        <!-- 登录成功地址 -->
+        <property name="successUrl" value="/toLoginSuccess"/>
+        <!-- 登录失败地址 -->
+        <property name="unauthorizedUrl" value="toError"/>
+        <!-- 权限配置 -->
+        <property name="filterChainDefinitions">
+            <value>
+                <!-- 可匿名访问地址 -->
+                / = anon
+              <!--  /images/** = anon
+                /css/** = anon
+                /js/** = anon
+                bootstrap/** = anon-->
+                <!-- 登出地址 -->
+                /shiroLoginOut = logout
+                <!-- 需要xxx角色才可访问的地址 -->
+                <!-- 需要非静态资源的所有请求 -->
+                /** = authc
+            </value>
+        </property>
+    </bean>
+
+    <!-- 退出登录过滤器 -->
+    <bean id="logoutFilter" class="org.apache.shiro.web.filter.authc.LogoutFilter">
+        <!-- 退出登录之后跳转的页面，貌似不配置也行，配了也不起作用 -->
+       <!-- <property name="redirectUrl" value="/index.jsp"/>-->
+    </bean>
+
+    <!-- 回话ID生成器-->
+    <bean id="sessionIdGenerator" class="org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator"/>
+    <!-- 回话cookie模板（设置为浏览器关闭即时效，不关闭的最大时长为20分钟） -->
+    <bean id="simpleCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+        <!-- 构造器参数 -->
+        <constructor-arg value="sid"/>
+        <property name="httpOnly" value="true"/>
+        <property name="maxAge" value="20"/>
+    </bean>
+    <!-- 回话验证调度器,每30分钟执行一次，设定回话超时记录保存 -->
+    <bean id="sessionValidationScheduler" class="org.apache.shiro.session.mgt.ExecutorServiceSessionValidationScheduler">
+        <property name="interval" value="1800000"/>
+        <property name="sessionManager" ref="sessionManager"/>
+    </bean>
+    <!-- sessionDao（对session进行增删改查） -->
+    <bean id="sessionDAO" class="org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO">
+        <property name="sessionIdGenerator" ref="sessionIdGenerator"/>
+    </bean>
+
+    <!-- 会员管理器,集成上面三个bean -->
+    <bean class="org.apache.shiro.web.mgt.DefaultWebSessionStorageEvaluator" id="sessionManager">
+        <!-- 全局会话超时时间 -->
+        <property name="globalSessionTimeout" value="30"/>
+        <property name="deleteInvalidSessions" value="true"/>
+        <property name="sessionValidationSchedulerEnabled" value="true"/>
+        <property name="sessionValidationScheduler" ref="sessionValidationScheduler"/>
+        <property name="sessionDAO" ref="sessionDAO"/>
+    </bean>
+
+    <!-- 配置自定义realm -->
+    <bean id="myRealm" class="com.erp.zdyShiro.myRealm"/>
+    <!-- 配置shiro缓存 -->
+    <bean id="cacheManager" class="org.apache.shiro.cache.MemoryConstrainedCacheManager"/>
+    <!-- 配置 Bean 后置处理器: 会自动的调用和 Spring 整合后各个组件的生命周期方法 -->
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+</beans>

@@ -4,6 +4,7 @@ import com.erp.dao.RegLogCustomerDao;
 import com.erp.pojo.Customer;
 import com.erp.service.CustomerService;
 import com.erp.service.serviceImpl.CustomerServiceImpl;
+import org.apache.shiro.web.servlet.ShiroFilter;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -37,17 +38,10 @@ public class test {
         System.out.println("jdbc connect success");
     }
 
-    private CustomerService customerService;
     @Test
     public void mybatisTest(){
-        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring-mybatis.xml");
-        CustomerService customerService = applicationContext.getBean(CustomerService.class);
-        System.out.println(1);
-        CustomerServiceImpl customerServiceimpl = applicationContext.getBean(CustomerServiceImpl.class);
-        System.out.println(2);
-        RegLogCustomerDao regLogCustomerDao = applicationContext.getBean(RegLogCustomerDao.class);
-        System.out.println(3);
-        Customer customer = applicationContext.getBean(Customer.class);
-        System.out.println(4);
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring-shiro.xml");
+        ShiroFilter shiroFilter = (ShiroFilter) applicationContext.getBean("shiroFilter");
+        System.out.println(shiroFilter.toString());
     }
 }

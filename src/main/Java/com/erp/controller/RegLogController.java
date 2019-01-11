@@ -2,6 +2,10 @@ package com.erp.controller;
 
 import com.erp.pojo.Customer;
 import com.erp.service.CustomerService;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +14,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,27 +29,21 @@ public class RegLogController {
      * @Param request 传值
      * @Param session 登录
      **/
-    @RequestMapping(value = "/Login", method = RequestMethod.POST)
-    public String Login(HttpServletRequest request, HttpSession session, Model model) {
-        Customer customer = new Customer();
-        customer.setPassword(request.getParameter("password"));
-        customer.setCardNo(request.getParameter("cardNo"));
-        log.info("账号:{}，密码:{}", customer.getCardNo(), customer.getPassword());
+    @RequestMapping(value = "/Login", method = RequestMethod.GET)
+    public String Login(HttpServletRequest request, Model model) {
+        String cardNo= request.getParameter("cardNo");
+        String password = request.getParameter("password");
+        log.info("账号:{}，密码:{}", cardNo, password);
+        //subject 指和shiro交互的所有用户
+        Subject subject = SecurityUtils.getSubject();
+        UsernamePasswordToken token = new UsernamePasswordToken(cardNo,password);
         try {
-            String status = customerService.Login(customer);
-            log.info("返回登录状态：{}", status);
-            if (status.equals("true")) {
-                //返回session登录名
-                session.setAttribute("username", customer.getCardNo());
-                return "forward:toLoginSuccess";
-            } else {
-                model.addAttribute("msg", "登录失败");
-                return  "forward:toIndex";
-            }
-        } catch (Exception e) {
-            log.info("系统异常：", e);
+            subject.login(token);
+        }catch (AuthenticationException e){
+            log.info("认证失败：",e.getMessage());
+            return "redirect:toError";
         }
-        return "redirect:toError";
+        return "forward:/toLoginSuccess";
     }
 
     /**
