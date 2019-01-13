@@ -20,16 +20,17 @@
         <!-- 登录成功地址 -->
         <property name="successUrl" value="/toLoginSuccess"/>
         <!-- 登录失败地址 -->
-        <property name="unauthorizedUrl" value="toError"/>
+        <property name="unauthorizedUrl" value="/toError"/>
         <!-- 权限配置 -->
         <property name="filterChainDefinitions">
             <value>
                 <!-- 可匿名访问地址 -->
                 / = anon
-              <!--  /images/** = anon
+                /images/** = anon
                 /css/** = anon
                 /js/** = anon
-                bootstrap/** = anon-->
+                /toError = anon
+                /toIndex = anon
                 <!-- 登出地址 -->
                 /shiroLoginOut = logout
                 <!-- 需要xxx角色才可访问的地址 -->
@@ -42,7 +43,7 @@
     <!-- 退出登录过滤器 -->
     <bean id="logoutFilter" class="org.apache.shiro.web.filter.authc.LogoutFilter">
         <!-- 退出登录之后跳转的页面，貌似不配置也行，配了也不起作用 -->
-       <!-- <property name="redirectUrl" value="/index.jsp"/>-->
+        <!-- <property name="redirectUrl" value="/index.jsp"/>-->
     </bean>
 
     <!-- 回话ID生成器-->
@@ -55,7 +56,8 @@
         <property name="maxAge" value="20"/>
     </bean>
     <!-- 回话验证调度器,每30分钟执行一次，设定回话超时记录保存 -->
-    <bean id="sessionValidationScheduler" class="org.apache.shiro.session.mgt.ExecutorServiceSessionValidationScheduler">
+    <bean id="sessionValidationScheduler"
+          class="org.apache.shiro.session.mgt.ExecutorServiceSessionValidationScheduler">
         <property name="interval" value="1800000"/>
         <property name="sessionManager" ref="sessionManager"/>
     </bean>
@@ -65,17 +67,25 @@
     </bean>
 
     <!-- 会员管理器,集成上面三个bean -->
-    <bean class="org.apache.shiro.web.mgt.DefaultWebSessionStorageEvaluator" id="sessionManager">
+    <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
         <!-- 全局会话超时时间 -->
         <property name="globalSessionTimeout" value="30"/>
         <property name="deleteInvalidSessions" value="true"/>
         <property name="sessionValidationSchedulerEnabled" value="true"/>
         <property name="sessionValidationScheduler" ref="sessionValidationScheduler"/>
         <property name="sessionDAO" ref="sessionDAO"/>
+        <property name="sessionIdCookieEnabled" value="true"/>
+        <property name="sessionIdCookie" ref="simpleCookie"/>
     </bean>
 
+    <!-- 相当于调用SecurityUtils.setSecurityManager(securityManager) -->
+    <!-- <bean id="" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+         <property name="staticMethod" value="setSecurityManager"/>
+         <property name="arguments" ref="securityManager"/>
+     </bean>
+ -->
     <!-- 配置自定义realm -->
-    <bean id="myRealm" class="com.erp.zdyShiro.myRealm"/>
+    <bean id="myRealm" class="com.erp.zdyShiro.MyRealm"/>
     <!-- 配置shiro缓存 -->
     <bean id="cacheManager" class="org.apache.shiro.cache.MemoryConstrainedCacheManager"/>
     <!-- 配置 Bean 后置处理器: 会自动的调用和 Spring 整合后各个组件的生命周期方法 -->

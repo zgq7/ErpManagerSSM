@@ -4,10 +4,10 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.erp.dao.RegLogCustomerDao">
 
-    <!--用户登录-->
+<!--    &lt;!&ndash;用户登录&ndash;&gt;
     <select id="Login" parameterType="Customer" resultType="String">
         CALL customer_login(#{cardNo}, #{password});
-    </select>
+    </select>-->
 
     <select id="checkRegInfo" resultType="Integer" parameterType="String">
         select count(*) from erp_customer where cardNo = #{cardNo};

@@ -59,11 +59,18 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- 数据库连接池 -->
+        <!-- c3p0 数据库连接池 -->
         <dependency>
             <groupId>com.mchange</groupId>
             <artifactId>c3p0</artifactId>
             <version>0.9.5.2</version>
+        </dependency>
+
+        <!-- 配置druid数据源 -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <version>1.0.12</version>
         </dependency>
 
         <!-- MyBatis -->

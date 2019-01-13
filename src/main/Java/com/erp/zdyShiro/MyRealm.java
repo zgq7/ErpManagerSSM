@@ -1,53 +1,50 @@
 package com.erp.zdyShiro;
 
-import com.erp.dao.PermRoleDao;
-import com.erp.pojo.Customer;
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.AuthenticationInfo;
-import org.apache.shiro.authc.AuthenticationToken;
-import org.apache.shiro.authc.SimpleAuthenticationInfo;
+import com.erp.dao.RegLogCustomerDao;
+import com.erp.service.PermRoleService;
+import org.apache.shiro.authc.*;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
-import org.apache.shiro.crypto.hash.Md2Hash;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.apache.shiro.util.ByteSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Administrator on 2019/1/11.
  * 配置自定义realm,获取用户权限，角色等信息
- * */
-public class myRealm extends AuthorizingRealm{
-    private static final Logger log = LoggerFactory.getLogger( myRealm.class);
+ */
+public class MyRealm extends AuthorizingRealm {
+    private static final Logger log = LoggerFactory.getLogger(MyRealm.class);
     @Autowired
-    private PermRoleDao permRoleDao;
-    private String pass;
+    private PermRoleService permRoleService;
+    @Autowired
+    private RegLogCustomerDao regLogCustomerDao;
+
     /**
      * @param principalCollection 实际上是subject
      * @return 返回用户权限信息
      * 用户授权
-     * **/
+     **/
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
+        log.info("-------------->开始授权");
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
         //得到用户名
         Object username = principalCollection.getPrimaryPrincipal();
-        //进行角色匹配
-        if("admin".equals(username)){
-            simpleAuthorizationInfo.addRole("admin");
-        }if("user".equals(username)){
-            simpleAuthorizationInfo.addRole("user");
-        }
-        simpleAuthorizationInfo.addRole("normal");
-        log.info("用户具有的角色",simpleAuthorizationInfo.getRoles());
+        //通过用户名进行进行角色匹配
+        Set<String> roles = permRoleService.getRoles(String.valueOf(username));
+        Set<String> perms = permRoleService.getPerms(roles);
+        log.info("用户具有的角色", simpleAuthorizationInfo.getRoles());
+        simpleAuthorizationInfo.setRoles(roles);
+        simpleAuthorizationInfo.setStringPermissions(perms);
         return simpleAuthorizationInfo;
     }
 
@@ -58,28 +55,32 @@ public class myRealm extends AuthorizingRealm{
      **/
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
-        log.info("token?-->{}",authenticationToken.toString());
+        log.info("----------->开始认证");
         //获取用户名，没必要获取密码
-        Object principal = authenticationToken.getPrincipal();
-        //利用username得到用户信息、角色
-        Customer customer = permRoleDao.getCustomerInfo((String) principal);
-        List<String> roles = permRoleDao.getSubjectRole((String) principal);
-        if (!roles.isEmpty()){
-            pass = customer.getCardNo();
+        UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
+        //principal就是用户名~~~~~~
+        //利用token得到用户名以及密码
+        String username = authenticationToken.getPrincipal().toString();
+        String password = String.valueOf(token.getPassword());
+        Boolean loginStatus = Boolean.valueOf(regLogCustomerDao.Login(username, password));
+        log.info("----------------> 认证状态：{}", loginStatus?"成功":"失败");
+        //loginStatus为true则认证成功，反之异常
+        if (!loginStatus) {
+            log.info("-----------------------》认证失败");
+            //抛出认证异常
+            throw new AuthenticationException();
         }
-        String credentials = pass;
-        //进行加盐处理
+       /* //进行加盐处理
         String salt = "abcdefg";
-        ByteSource credentialSalt = new Md2Hash(salt);
+        ByteSource credentialSalt = new Md2Hash(salt);*/
         //调用父类getName 方法得到当前realm的name
         String realmName = getName();
-        //返回具体实例
-        SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(principal,credentials,credentialSalt,realmName);
-        return info;
+        //返回具体实例 SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(principal, credentials, credentialSalt, realmName);
+        return new SimpleAuthenticationInfo(username, password, realmName);
     }
 
     //init-method 配置.
-    public void setCredentialMatcher(){
+    public void setCredentialMatcher() {
         HashedCredentialsMatcher credentialsMatcher = new HashedCredentialsMatcher();
         credentialsMatcher.setHashAlgorithmName("MD5");//MD5算法加密
         credentialsMatcher.setHashIterations(1024);//1024次循环加密

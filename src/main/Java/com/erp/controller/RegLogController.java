@@ -2,6 +2,7 @@ package com.erp.controller;
 
 import com.erp.pojo.Customer;
 import com.erp.service.CustomerService;
+import com.sun.org.apache.regexp.internal.RE;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -10,7 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,11 +26,10 @@ public class RegLogController {
 
     /**
      * 用户登录
-     * @Param request 传值
-     * @Param session 登录
+     * @param  request 传值
      **/
-    @RequestMapping(value = "/Login", method = RequestMethod.GET)
-    public String Login(HttpServletRequest request, Model model) {
+    @RequestMapping(value = "/Login",method = RequestMethod.POST)
+    public String Login(HttpServletRequest request) {
         String cardNo= request.getParameter("cardNo");
         String password = request.getParameter("password");
         log.info("账号:{}，密码:{}", cardNo, password);
@@ -40,8 +39,7 @@ public class RegLogController {
         try {
             subject.login(token);
         }catch (AuthenticationException e){
-            log.info("认证失败：",e.getMessage());
-            return "redirect:toError";
+            return "error";
         }
         return "forward:/toLoginSuccess";
     }

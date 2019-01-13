@@ -18,7 +18,7 @@ public class CustomerServiceImpl implements CustomerService{
 
     @Override
     public String Login(Customer customer) {
-        return regLogCustomerDao.Login(customer);
+        return regLogCustomerDao.Login(customer.getCardNo(),customer.getPassword());
     }
 
     @Override

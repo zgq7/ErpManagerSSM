@@ -11,7 +11,10 @@
     <title>Title</title>
 </head>
 <body>
-something was wrong
-<br>
+<center>
+    <h1>something was wrong</h1>
+    <a href="toIndex">返回首页</a>
+    <br>
+</center>
 </body>
 </html>

@@ -24,7 +24,8 @@ body {
 
 .usernameL,.passwordL,.username,.password,.name,.mobile{
     width: 60%;
-    margin-top: 15%;
+    height: 10%;
+    margin-top: 12%;
     margin-left: 20%;
 }
 
