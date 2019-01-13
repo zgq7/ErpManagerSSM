@@ -39,6 +39,7 @@ public class RegLogController {
         try {
             subject.login(token);
         }catch (AuthenticationException e){
+            log.info("{}",e);
             return "error";
         }
         return "forward:/toLoginSuccess";
