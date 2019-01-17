@@ -80,6 +80,12 @@
             <version>${mybatis.version}</version>
         </dependency>
 
+        <!-- Mybatis-Generator -> 自动生成dao,mapper,model -->
+        <dependency>
+            <groupId>org.mybatis.generator</groupId>
+            <artifactId>${mybatis.version}</artifactId>
+        </dependency>
+
         <!-- mybatis/spring整合包 -->
         <dependency>
             <groupId>org.mybatis</groupId>

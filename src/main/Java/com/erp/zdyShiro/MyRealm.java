@@ -76,7 +76,7 @@ public class MyRealm extends AuthorizingRealm {
         //调用父类getName 方法得到当前realm的name
         String realmName = getName();
         //返回具体实例 SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(principal, credentials, credentialSalt, realmName);
-        return new SimpleAuthenticationInfo(username, password, realmName);
+        return new SimpleAuthenticationInfo("MD5",password,new Md5Hash(username),realmName);
     }
 
     //init-method 配置.
